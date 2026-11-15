@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>星笺 · 联系人管理</title>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">✦</span><div><strong>星笺</strong><small>CONTACTS</small></div></div>
+      <nav>
+        <button class="nav-item active" data-filter="all">⌂ <span>全部联系人</span><b id="allCount">0</b></button>
+        <button class="nav-item" data-filter="favorite">★ <span>我的收藏</span><b id="favoriteCount">0</b></button>
+      </nav>
+      <div class="sidebar-foot"><span class="status-dot"></span> 数据保存在本机浏览器</div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div><p class="eyebrow">PERSONAL ADDRESS BOOK</p><h1>联系人</h1></div><div class="top-actions"><button class="btn btn-ghost" id="importBtn">↥ 导入 Excel</button><button class="btn btn-primary" id="exportBtn">↧ 导出 Excel</button><input type="file" id="fileInput" accept=".xlsx,.xls" hidden /></div></header>
+      <section class="toolbar"><div class="search-wrap">⌕<input id="searchInput" placeholder="搜索姓名、公司、电话或邮箱…" /></div><button class="btn btn-primary" id="addBtn">＋ 新建联系人</button></section>
+      <section class="stats"><div><span>联系人总数</span><strong id="statTotal">0</strong></div><div><span>已收藏</span><strong id="statFavorite">0</strong></div><div><span>联系方式</span><strong id="statMethods">0</strong></div></section>
+      <section id="contactGrid" class="contact-grid"></section>
+      <div id="emptyState" class="empty" hidden><div class="empty-icon">✦</div><h2>还没有联系人</h2><p>新建联系人，或导入一份 Excel 通讯录。</p><button class="btn btn-primary" id="emptyAdd">＋ 新建联系人</button></div>
+    </main>
+  </div>
+  <dialog id="contactDialog"><form method="dialog" id="contactForm"><div class="dialog-head"><div><p class="eyebrow">CONTACT PROFILE</p><h2 id="dialogTitle">新建联系人</h2></div><button type="button" class="icon-btn" id="closeDialog">×</button></div><input type="hidden" id="contactId" /><div class="form-grid"><label>姓名 *<input id="name" required maxlength="40" placeholder="例如：林晓" /></label><label>公司/组织<input id="company" maxlength="60" placeholder="例如：星河科技" /></label><label>职位<input id="job" maxlength="60" placeholder="例如：产品经理" /></label><label>标签<input id="tags" maxlength="100" placeholder="朋友, 客户" /></label></div><div class="methods-head"><h3>联系方式</h3><button type="button" class="text-btn" id="addMethod">＋ 添加联系方式</button></div><div id="methods"></div><label>备注<textarea id="notes" rows="3" maxlength="500" placeholder="记录一些重要信息…"></textarea></label><div class="dialog-actions"><button type="button" class="btn btn-ghost" id="cancelDialog">取消</button><button type="submit" class="btn btn-primary">保存联系人</button></div></form></dialog>
+  <template id="methodTemplate"><div class="method-row"><select class="method-type"><option>手机</option><option>邮箱</option><option>微信</option><option>电话</option><option>地址</option><option>其他</option></select><input class="method-value" required placeholder="联系方式" /><button type="button" class="remove-method">×</button></div></template>
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
